@@ -12,8 +12,11 @@ import pandas as pd
 import seaborn as sns
 from dotenv import load_dotenv
 from spotipy import Spotify
+import spotipy
 from spotipy.oauth2 import SpotifyOAuth
 import requests
+
+
 
 # load the .env file variables
 load_dotenv()
@@ -21,9 +24,6 @@ load_dotenv()
 
 client_id = os.environ.get("775ed703fae0412db7989566cb57121a")
 client_secret = os.environ.get("52050e0c52df4a9fb8e7ff2f1ea9a164")
-
-#import spotipy
-
 
 # Autenticación con las credenciales de Spotify (client_id, client_secret, redirect_uri)
 sp = spotipy.Spotify(auth_manager=SpotifyOAuth(
