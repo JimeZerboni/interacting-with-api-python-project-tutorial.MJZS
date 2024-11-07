@@ -4,32 +4,24 @@ Incluye funciones para autenticarse con la API, recuperar datos de canciones y p
 la información usando pandas y seaborn.
 """
 
-
 import os
 import base64
-
-import pandas as pd
-import seaborn as sns
+import pandas as pd  # Unused import
+import seaborn as sns  # pylint: disable=W0611
 from dotenv import load_dotenv
-from spotipy import Spotify
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth
 import requests
-
-
 
 # load the .env file variables
 load_dotenv()
 
 
-client_id = os.environ.get("775ed703fae0412db7989566cb57121a")
-client_secret = os.environ.get("52050e0c52df4a9fb8e7ff2f1ea9a164")
-
 # Autenticación con las credenciales de Spotify (client_id, client_secret, redirect_uri)
 sp = spotipy.Spotify(auth_manager=SpotifyOAuth(
-    client_id="775ed703fae0412db7989566cb57121a",
-    client_secret="52050e0c52df4a9fb8e7ff2f1ea9a164",
-    redirect_uri="http://localhost/",
+    client_id=os.getenv("SPOTIPY_CLIENT_ID"),
+    client_secret=os.getenv("SPOTIPY_CLIENT_SECRET"),
+    redirect_uri=os.getenv("SPOTIPY_REDIRECT_URI"),
     scope="user-library-read"
 ))
 
@@ -38,12 +30,8 @@ sp = spotipy.Spotify(auth_manager=SpotifyOAuth(
 user_info = sp.current_user()
 print(user_info)
 
-# Reemplaza con tus credenciales de cliente
-CLIENT_ID = '775ed703fae0412db7989566cb57121a'
-CLIENT_SECRET = '52050e0c52df4a9fb8e7ff2f1ea9a164'
-
 # Codificar las credenciales como Base64
-credentials = f'{CLIENT_ID}:{CLIENT_SECRET}'
+credentials = f'{SPOTIPY_CLIENT_ID}:{SPOTIPY_CLIENT_SECRET}' # type: ignore
 encoded_credentials = base64.b64encode(credentials.encode('utf-8')).decode('utf-8')
 
 # Configuración de la solicitud para obtener el token
